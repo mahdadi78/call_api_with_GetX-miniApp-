@@ -17,7 +17,7 @@ class ListViewBuilderItems extends StatelessWidget {
         itemCount: controller.futureDataList.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.only(top: 25),
+            padding: const EdgeInsets.only(top: 30),
             child: Stack(
               clipBehavior: Clip.none,
               children: [
