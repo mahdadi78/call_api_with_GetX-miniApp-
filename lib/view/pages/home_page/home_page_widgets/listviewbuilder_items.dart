@@ -1,17 +1,20 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:movies_project/const.dart';
-import 'package:movies_project/main.dart';
 
 class ListViewBuilderItems extends StatelessWidget {
+  final controller;
   const ListViewBuilderItems({
     super.key,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
-        itemCount: futureDataList.length,
+        itemCount: controller.futureDataList.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(top: 25),
@@ -54,7 +57,7 @@ class ListViewBuilderItems extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10),
             child: Text(
               // ignore: prefer_interpolation_to_compose_strings
-              'Maid in: ' + futureDataList[index].country!,
+              'Maid in: ' + controller.futureDataList[index].country!,
               style: const TextStyle(fontSize: 12, color: Colors.black38),
             ),
           )
@@ -65,7 +68,7 @@ class ListViewBuilderItems extends StatelessWidget {
 
   List<Widget> widgetMaker(int index) {
     List<Widget> myList = [];
-    for (int i = 0; i < futureDataList[index].genres!.length; i++) {
+    for (int i = 0; i < controller.futureDataList[index].genres!.length; i++) {
       myList.add(Container(
         margin: const EdgeInsets.only(right: 10, top: 10),
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
@@ -74,7 +77,7 @@ class ListViewBuilderItems extends StatelessWidget {
             border:
                 Border.all(color: i < 1 ? mainColor : Colors.blue, width: .8)),
         child: Text(
-          futureDataList[index].genres![i],
+          controller.futureDataList[index].genres![i],
           style:
               TextStyle(fontSize: 10, color: i < 1 ? mainColor : Colors.blue),
         ),
@@ -95,7 +98,7 @@ class ListViewBuilderItems extends StatelessWidget {
             aspectRatio: 9 / 14,
             child: Image(
                 fit: BoxFit.cover,
-                image: NetworkImage(futureDataList[index].poster!)),
+                image: NetworkImage(controller.futureDataList[index].poster!)),
           ),
         ),
       ),
@@ -108,13 +111,13 @@ class ListViewBuilderItems extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            futureDataList[index].title!,
+            controller.futureDataList[index].title!,
             style: const TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.w700),
           ),
         ),
         Text(
-          futureDataList[index].imdbRating!,
+          controller.futureDataList[index].imdbRating!,
           style: const TextStyle(
               fontSize: 15, fontWeight: FontWeight.w900, color: mainColor),
         ),

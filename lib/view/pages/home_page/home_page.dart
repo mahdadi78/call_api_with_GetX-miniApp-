@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movies_project/controller/controller.dart';
 import 'package:movies_project/view/appbar_const.dart';
 import 'package:movies_project/const.dart';
-import 'package:movies_project/controller/controller.dart';
 import 'package:movies_project/view/pages/home_page/home_page_widgets/listviewbuilder_items.dart';
 import 'package:movies_project/web_servise/get_servics.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+  final controller = Get.put(AppController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,9 @@ class HomePage extends StatelessWidget {
             future: GetServic().getDatas(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return const ListViewBuilderItems();
+                return ListViewBuilderItems(
+                  controller: controller,
+                );
               } else if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
