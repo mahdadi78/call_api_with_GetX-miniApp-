@@ -2,7 +2,8 @@
 
 A new Flutter project.
 
-## Getting Started
+## screenshote
+![Capture](https://github.com/mahdadi78/movies-app/assets/78992400/f7d349e5-edd8-48a3-b5f6-283c90dec4c2)
 
 This project is a starting point for a Flutter application.
 
