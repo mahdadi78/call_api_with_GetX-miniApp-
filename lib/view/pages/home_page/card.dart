@@ -19,14 +19,7 @@ class MyCard extends StatelessWidget {
                 left: 120, right: 10, top: 20, bottom: 20),
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 23),
             decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 4,
-                  offset: const Offset(0, 5),
-                  blurStyle: BlurStyle.outer,
-                  color: Colors.grey.shade300,
-                )
-              ],
+              boxShadow: [Constants().boxShadow()],
               borderRadius: BorderRadius.circular(10),
               color: Constants.cardColor,
             ),
@@ -69,23 +62,27 @@ class MyCard extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-            bottom: 32,
-            left: 28,
-            child: SizedBox(
-              width: 99,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: AspectRatio(
-                  aspectRatio: 9 / 14,
-                  child: Image(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(controller.dataList[index].poster!)),
-                ),
-              ),
-            ),
-          ),
+          _image(),
         ],
+      ),
+    );
+  }
+
+  Widget _image() {
+    return Positioned(
+      bottom: 32,
+      left: 28,
+      child: SizedBox(
+        width: 99,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: AspectRatio(
+            aspectRatio: 9 / 14,
+            child: Image(
+                fit: BoxFit.cover,
+                image: NetworkImage(controller.dataList[index].poster!)),
+          ),
+        ),
       ),
     );
   }
