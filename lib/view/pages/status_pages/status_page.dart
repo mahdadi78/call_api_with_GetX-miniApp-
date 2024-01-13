@@ -14,6 +14,20 @@ class IntroductionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: InkWell(
+            onTap: () {
+              Navigator.pop(context, true);
+            },
+            child: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.white54,
+            ),
+          )),
       body: Obx(
         () => controller.isLoading.value
             ? const Center(

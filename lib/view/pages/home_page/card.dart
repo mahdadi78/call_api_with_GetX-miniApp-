@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movies_project/constants/constans.dart';
 import 'package:movies_project/controller/new_controller.dart';
+import 'package:movies_project/view/pages/status_pages/status_page.dart';
 
 class MyCard extends StatelessWidget {
   final int index;
@@ -9,61 +10,67 @@ class MyCard extends StatelessWidget {
   final controller = Get.put(NewsController());
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(
-                left: 120, right: 10, top: 20, bottom: 20),
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 23),
-            decoration: BoxDecoration(
-              boxShadow: [Constants().boxShadow()],
-              borderRadius: BorderRadius.circular(10),
-              color: Constants.cardColor,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        controller.dataList[index].title!,
+    return GestureDetector(
+      onTap: () {
+        Get.to(IntroductionPage(index: index));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(
+                  left: 120, right: 10, top: 20, bottom: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 23),
+              decoration: BoxDecoration(
+                boxShadow: [Constants().boxShadow()],
+                borderRadius: BorderRadius.circular(10),
+                color: Constants.cardColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          controller.dataList[index].title!,
+                          style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Text(
+                        controller.dataList[index].imdbRating!,
                         style: const TextStyle(
                             fontSize: 15,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700),
+                            fontWeight: FontWeight.w900,
+                            color: Constants.mainColor),
                       ),
-                    ),
-                    Text(
-                      controller.dataList[index].imdbRating!,
-                      style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w900,
-                          color: Constants.mainColor),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: widgetMaker(index),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    // ignore: prefer_interpolation_to_compose_strings
-                    'Maid in: ' + controller.dataList[index].country!,
-                    style: const TextStyle(fontSize: 12, color: Colors.black38),
+                    ],
                   ),
-                )
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: widgetMaker(index),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      // ignore: prefer_interpolation_to_compose_strings
+                      'Maid in: ' + controller.dataList[index].country!,
+                      style:
+                          const TextStyle(fontSize: 12, color: Colors.black38),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          _image(),
-        ],
+            _image(),
+          ],
+        ),
       ),
     );
   }
