@@ -1,10 +1,10 @@
 
-https://github.com/mahdadi78/call_api_with_GetX-miniApp-/assets/78992400/70166b05-7ea6-49ee-9ae3-3f07a00be266
-# movies_project
 
-A new Flutter project.
+# Call_api  with GetX  
 
-## screenshote
+A small example with api call. Super beautiful ui. and using Hero to travel between two screens
+
+## Like a video
 
 
 https://github.com/mahdadi78/call_api_with_GetX-miniApp-/assets/78992400/562a9954-2685-4dd3-97f3-792345641662
