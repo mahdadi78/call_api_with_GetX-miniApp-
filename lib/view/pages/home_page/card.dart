@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movies_project/const.dart';
+import 'package:movies_project/constants/constans.dart';
 import 'package:movies_project/controller/new_controller.dart';
 
 class MyCard extends StatelessWidget {
@@ -28,7 +28,7 @@ class MyCard extends StatelessWidget {
                 )
               ],
               borderRadius: BorderRadius.circular(10),
-              color: cardColor,
+              color: Constants.cardColor,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +50,7 @@ class MyCard extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w900,
-                          color: mainColor),
+                          color: Constants.mainColor),
                     ),
                   ],
                 ),
@@ -98,12 +98,12 @@ class MyCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            border:
-                Border.all(color: i < 1 ? mainColor : Colors.blue, width: .8)),
+            border: Border.all(
+                color: i < 1 ? Constants.mainColor : Colors.blue, width: .8)),
         child: Text(
           controller.dataList[index].genres![i],
-          style:
-              TextStyle(fontSize: 10, color: i < 1 ? mainColor : Colors.blue),
+          style: TextStyle(
+              fontSize: 10, color: i < 1 ? Constants.mainColor : Colors.blue),
         ),
       ));
     }

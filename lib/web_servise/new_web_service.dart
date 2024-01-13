@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:movies_project/constans.dart';
+import 'package:movies_project/constants/constans.dart';
 import 'package:movies_project/models/genres_model.dart';
 
 class NewsWebService {

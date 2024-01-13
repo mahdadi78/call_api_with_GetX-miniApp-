@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movies_project/constants/constans.dart';
 import 'package:movies_project/controller/new_controller.dart';
 import 'package:movies_project/view/appbar_const.dart';
-import 'package:movies_project/const.dart';
 import 'package:movies_project/view/pages/home_page/card.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Constants.backgroundColor,
         appBar: _appbar(),
         body: Obx(
           () => _newController.isLoading.value
