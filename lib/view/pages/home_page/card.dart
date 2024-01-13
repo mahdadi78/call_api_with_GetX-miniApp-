@@ -58,11 +58,14 @@ class MyCard extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
-                    child: Text(
-                      // ignore: prefer_interpolation_to_compose_strings
-                      'Maid in: ' + controller.dataList[index].country!,
-                      style:
-                          const TextStyle(fontSize: 12, color: Colors.black38),
+                    child: Hero(
+                      tag: controller.dataList[index].id!,
+                      child: Text(
+                        // ignore: prefer_interpolation_to_compose_strings
+                        'Maid in: ' + controller.dataList[index].country!,
+                        style: const TextStyle(
+                            fontSize: 12, color: Colors.black38),
+                      ),
                     ),
                   )
                 ],
@@ -79,15 +82,18 @@ class MyCard extends StatelessWidget {
     return Positioned(
       bottom: 32,
       left: 28,
-      child: SizedBox(
-        width: 99,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: AspectRatio(
-            aspectRatio: 9 / 14,
-            child: Image(
-                fit: BoxFit.cover,
-                image: NetworkImage(controller.dataList[index].poster!)),
+      child: Hero(
+        tag: controller.dataList[index].id!,
+        child: SizedBox(
+          width: 99,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: AspectRatio(
+              aspectRatio: 9 / 14,
+              child: Image(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(controller.dataList[index].poster!)),
+            ),
           ),
         ),
       ),

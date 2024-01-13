@@ -56,16 +56,19 @@ class IntroductionPage extends StatelessWidget {
                             Positioned(
                               top: -95,
                               left: 20,
-                              child: SizedBox(
-                                width: 170,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: AspectRatio(
-                                    aspectRatio: 9 / 14,
-                                    child: Image(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(controller
-                                            .dataList[index].poster!)),
+                              child: Hero(
+                                tag: controller.dataList[index].id!,
+                                child: SizedBox(
+                                  width: 170,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: AspectRatio(
+                                      aspectRatio: 9 / 14,
+                                      child: Image(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(controller
+                                              .dataList[index].poster!)),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -105,12 +108,16 @@ class IntroductionPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    // ignore: prefer_interpolation_to_compose_strings
-                    widgetMakerIMDB(index).length > 1
-                        ? 'Product of the country : ${controller.dataList[index].country!}'
-                        : 'Joint product : ${controller.dataList[index].country!}',
-                    style: const TextStyle(fontSize: 12, color: Colors.black45),
+                  child: Hero(
+                    tag: controller.dataList[index].id!,
+                    child: Text(
+                      // ignore: prefer_interpolation_to_compose_strings
+                      widgetMakerIMDB(index).length > 1
+                          ? 'Product of the country : ${controller.dataList[index].country!}'
+                          : 'Joint product : ${controller.dataList[index].country!}',
+                      style:
+                          const TextStyle(fontSize: 12, color: Colors.black45),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),
