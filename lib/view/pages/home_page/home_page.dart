@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movies_project/controller/controller.dart';
+import 'package:movies_project/controller/new_controller.dart';
 import 'package:movies_project/view/appbar_const.dart';
 import 'package:movies_project/const.dart';
-import 'package:movies_project/view/pages/home_page/home_page_widgets/listviewbuilder_items.dart';
-import 'package:movies_project/web_servise/get_servics.dart';
+import 'package:movies_project/view/pages/home_page/card.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  final controller = Get.put(AppController());
+  final _newController = Get.put(NewsController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: _appbar(),
-        body: FutureBuilder(
-            future: GetServic().getDatas(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListViewBuilderItems(
-                  controller: controller,
-                );
-              } else if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }));
+        body: Obx(
+          () => _newController.isLoading.value
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: _newController.dataList.length,
+                  itemBuilder: (context, index) {
+                    return MyCard(index: index);
+                  },
+                ),
+        ));
   }
 
   AppBar _appbar() {
