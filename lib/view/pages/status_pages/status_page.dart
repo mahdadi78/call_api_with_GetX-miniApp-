@@ -36,110 +36,27 @@ class IntroductionPage extends StatelessWidget {
                                 topLeft: Radius.circular(50),
                                 topRight: Radius.circular(50))),
                         //* page////////////////////////////////////////
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Stack(
+                          clipBehavior: Clip.none,
                           children: [
-                            Container(
-                              width: double.infinity,
-                              margin: EdgeInsets.only(
-                                  left: size.width / 2, top: 30, right: 30),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    controller.dataList[index].title!,
-                                    style: const TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.black87),
+                            Positioned(
+                              top: -95,
+                              left: 20,
+                              child: SizedBox(
+                                width: 170,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: AspectRatio(
+                                    aspectRatio: 9 / 14,
+                                    child: Image(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(controller
+                                            .dataList[index].poster!)),
                                   ),
-                                  Row(
-                                    children: widgetMakerIMDB(index),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      // ignore: prefer_interpolation_to_compose_strings
-                                      widgetMakerIMDB(index).length > 1
-                                          ? 'Product of the country : ${controller.dataList[index].country!}'
-                                          : 'Joint product : ${controller.dataList[index].country!}',
-                                      style: const TextStyle(
-                                          fontSize: 12, color: Colors.black45),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    'Year of construction : ${controller.dataList[index].year!}',
-                                    style: const TextStyle(
-                                        fontSize: 12, color: Colors.black45),
-                                  ),
-                                  _ratingStars(),
-                                ],
+                                ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 30),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      'Introduction',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.black87,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    const SizedBox(height: 15),
-                                    const Text(
-                                      maxLines: 6,
-                                      overflow: TextOverflow.ellipsis,
-                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae metus vel orci cursus suscipit at quis eros. Ut metus quam, tincidunt non vestibulum nec, ornare sit amet ipsum. Sed placerat pellentesque urna, vitae auctor mauris tincidunt imperdiet. Nunc nec ultrices purus. Sed pellentesque at ante vitae consectetur. Suspendisse molestie, tellus sit amet sollicitudin rhoncus, nibh felis iaculis sem, gravida ultrices est sapien vitae lectus. Pellentesque rhoncus risus vel arcu mollis euismod. Aenean commodo suscipit orci, id volutpat mauris. Vestibulum mauris leo, volutpat ut condimentum blandit, accumsan in risus. Curabitur ut rutrum justo. Donec scelerisque ante in ullamcorper congue. Suspendisse a tortor ac ex finibus iaculis. Pellentesque nec euismod orci.',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 40),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          collectButton(),
-                                          buyButton(),
-                                        ],
-                                      ),
-                                    ),
-                                    //* showing images in this field
-                                    const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Actor',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w800),
-                                        ),
-                                        Text(
-                                          'see All >',
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.black26,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: widgetMakerImages(index),
-                                    )
-                                  ]),
-                            )
+                            informationCard(size),
                           ],
                         ),
                       ),
@@ -147,6 +64,108 @@ class IntroductionPage extends StatelessWidget {
                   ],
                 ),
               ),
+      ),
+    );
+  }
+
+  Widget informationCard(Size size) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(left: size.width / 2, top: 30, right: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  controller.dataList[index].title!,
+                  style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black87),
+                ),
+                Row(
+                  children: widgetMakerIMDB(index),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    // ignore: prefer_interpolation_to_compose_strings
+                    widgetMakerIMDB(index).length > 1
+                        ? 'Product of the country : ${controller.dataList[index].country!}'
+                        : 'Joint product : ${controller.dataList[index].country!}',
+                    style: const TextStyle(fontSize: 12, color: Colors.black45),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Year of construction : ${controller.dataList[index].year!}',
+                  style: const TextStyle(fontSize: 12, color: Colors.black45),
+                ),
+                _ratingStars(),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text(
+                'Introduction',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: 15),
+              const Text(
+                maxLines: 6,
+                overflow: TextOverflow.ellipsis,
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae metus vel orci cursus suscipit at quis eros. Ut metus quam, tincidunt non vestibulum nec, ornare sit amet ipsum. Sed placerat pellentesque urna, vitae auctor mauris tincidunt imperdiet. Nunc nec ultrices purus. Sed pellentesque at ante vitae consectetur. Suspendisse molestie, tellus sit amet sollicitudin rhoncus, nibh felis iaculis sem, gravida ultrices est sapien vitae lectus. Pellentesque rhoncus risus vel arcu mollis euismod. Aenean commodo suscipit orci, id volutpat mauris. Vestibulum mauris leo, volutpat ut condimentum blandit, accumsan in risus. Curabitur ut rutrum justo. Donec scelerisque ante in ullamcorper congue. Suspendisse a tortor ac ex finibus iaculis. Pellentesque nec euismod orci.',
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w600),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    collectButton(),
+                    buyButton(),
+                  ],
+                ),
+              ),
+              //* showing images in this field
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Actor',
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w800),
+                  ),
+                  Text(
+                    'see All >',
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black26,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              Row(
+                children: widgetMakerImages(index),
+              )
+            ]),
+          )
+        ],
       ),
     );
   }
