@@ -6,6 +6,10 @@ import 'package:get/get.dart';
 import 'package:movies_project/constants/constans.dart';
 import 'package:movies_project/controller/new_controller.dart';
 
+//! if scrolling image fade out
+//! circleAvatar back ground is blue !!!  change to grey
+//! if size.width<408    will not have an error
+
 class IntroductionPage extends StatelessWidget {
   final int index;
   IntroductionPage({super.key, required this.index});
@@ -23,9 +27,12 @@ class IntroductionPage extends StatelessWidget {
             onTap: () {
               Navigator.pop(context, true);
             },
-            child: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: Colors.white54,
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.white54,
+              ),
             ),
           )),
       body: Obx(
@@ -49,39 +56,45 @@ class IntroductionPage extends StatelessWidget {
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 topRight: Radius.circular(50))),
-                        //* page////////////////////////////////////////
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Positioned(
-                              top: -95,
-                              left: 20,
-                              child: Hero(
-                                tag: controller.dataList[index].id!,
-                                child: SizedBox(
-                                  width: 170,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: AspectRatio(
-                                      aspectRatio: 9 / 14,
-                                      child: Image(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(controller
-                                              .dataList[index].poster!)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            informationCard(size),
-                          ],
-                        ),
+                        child: posterImage(size),
                       ),
                     )
                   ],
                 ),
               ),
       ),
+    );
+  }
+
+  Widget posterImage(Size size) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Positioned(
+          top: -95,
+          left: 20,
+          child: Hero(
+            tag: controller.dataList[index].id!,
+            child: SizedBox(
+              width: size.width > 400 && size.width < 600
+                  ? 170
+                  : size.width > 600
+                      ? 180
+                      : 150,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: AspectRatio(
+                  aspectRatio: 9 / 14,
+                  child: Image(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(controller.dataList[index].poster!)),
+                ),
+              ),
+            ),
+          ),
+        ),
+        informationCard(size),
+      ],
     );
   }
 
@@ -103,7 +116,7 @@ class IntroductionPage extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                       color: Colors.black87),
                 ),
-                Row(
+                Wrap(
                   children: widgetMakerIMDB(index),
                 ),
                 Padding(
@@ -125,69 +138,68 @@ class IntroductionPage extends StatelessWidget {
                   'Year of construction : ${controller.dataList[index].year!}',
                   style: const TextStyle(fontSize: 12, color: Colors.black45),
                 ),
-                _ratingStars(),
+                _ratingStars(size: size),
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text(
-                'Introduction',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 15),
-              const Text(
-                maxLines: 6,
-                overflow: TextOverflow.ellipsis,
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae metus vel orci cursus suscipit at quis eros. Ut metus quam, tincidunt non vestibulum nec, ornare sit amet ipsum. Sed placerat pellentesque urna, vitae auctor mauris tincidunt imperdiet. Nunc nec ultrices purus. Sed pellentesque at ante vitae consectetur. Suspendisse molestie, tellus sit amet sollicitudin rhoncus, nibh felis iaculis sem, gravida ultrices est sapien vitae lectus. Pellentesque rhoncus risus vel arcu mollis euismod. Aenean commodo suscipit orci, id volutpat mauris. Vestibulum mauris leo, volutpat ut condimentum blandit, accumsan in risus. Curabitur ut rutrum justo. Donec scelerisque ante in ullamcorper congue. Suspendisse a tortor ac ex finibus iaculis. Pellentesque nec euismod orci.',
-                style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w600),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    collectButton(),
-                    buyButton(),
-                  ],
-                ),
-              ),
-              //* showing images in this field
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Actor',
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w800),
-                  ),
-                  Text(
-                    'see All >',
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black26,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-              Row(
-                children: widgetMakerImages(index),
-              )
-            ]),
-          )
+          introText()
         ],
       ),
+    );
+  }
+
+  Widget introText() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const Text(
+          'Introduction',
+          style: TextStyle(
+              fontSize: 20, color: Colors.black87, fontWeight: FontWeight.w800),
+        ),
+        const SizedBox(height: 15),
+        const Text(
+          maxLines: 6,
+          overflow: TextOverflow.ellipsis,
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae metus vel orci cursus suscipit at quis eros. Ut metus quam, tincidunt non vestibulum nec, ornare sit amet ipsum. Sed placerat pellentesque urna, vitae auctor mauris tincidunt imperdiet. Nunc nec ultrices purus. Sed pellentesque at ante vitae consectetur. Suspendisse molestie, tellus sit amet sollicitudin rhoncus, nibh felis iaculis sem, gravida ultrices est sapien vitae lectus. Pellentesque rhoncus risus vel arcu mollis euismod. Aenean commodo suscipit orci, id volutpat mauris. Vestibulum mauris leo, volutpat ut condimentum blandit, accumsan in risus. Curabitur ut rutrum justo. Donec scelerisque ante in ullamcorper congue. Suspendisse a tortor ac ex finibus iaculis. Pellentesque nec euismod orci.',
+          style: TextStyle(
+              fontSize: 15, color: Colors.black54, fontWeight: FontWeight.w600),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 40),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              collectButton(),
+              buyButton(),
+            ],
+          ),
+        ),
+        //* showing images in this field
+        avatarImage(),
+        Row(
+          children: widgetMakerImages(index),
+        )
+      ]),
+    );
+  }
+
+  Widget avatarImage() {
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Actor',
+          style: TextStyle(
+              fontSize: 15, color: Colors.black87, fontWeight: FontWeight.w800),
+        ),
+        Text(
+          'see All >',
+          style: TextStyle(
+              fontSize: 12, color: Colors.black26, fontWeight: FontWeight.w600),
+        ),
+      ],
     );
   }
 
@@ -223,36 +235,65 @@ class IntroductionPage extends StatelessWidget {
     );
   }
 
-  Widget _ratingStars() {
+  Widget _ratingStars({var size}) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          RatingBar.builder(
-            initialRating: double.parse(controller.dataList[index].imdbRating!),
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 10,
-            itemSize: 11,
-            itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              size: 1,
-              color: Colors.amber,
-            ),
-            ignoreGestures: true,
-            onRatingUpdate: (rating) {},
-          ),
-          Text(
-            controller.dataList[index].imdbRating!,
-            style: const TextStyle(
-                color: Constants.mainColor, fontWeight: FontWeight.w800),
-          )
-        ],
-      ),
-    );
+        padding: const EdgeInsets.only(top: 5),
+        child: size.width > 364
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RatingBar.builder(
+                    initialRating:
+                        double.parse(controller.dataList[index].imdbRating!),
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 10,
+                    itemSize: 11,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      size: 1,
+                      color: Colors.amber,
+                    ),
+                    ignoreGestures: true,
+                    onRatingUpdate: (rating) {},
+                  ),
+                  Text(
+                    controller.dataList[index].imdbRating!,
+                    style: const TextStyle(
+                        color: Constants.mainColor,
+                        fontWeight: FontWeight.w800),
+                  )
+                ],
+              )
+            : Wrap(
+                children: [
+                  RatingBar.builder(
+                    initialRating:
+                        double.parse(controller.dataList[index].imdbRating!),
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 10,
+                    itemSize: 11,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      size: 1,
+                      color: Colors.amber,
+                    ),
+                    ignoreGestures: true,
+                    onRatingUpdate: (rating) {},
+                  ),
+                  Text(
+                    controller.dataList[index].imdbRating!,
+                    style: const TextStyle(
+                        color: Constants.mainColor,
+                        fontWeight: FontWeight.w800),
+                  )
+                ],
+              ));
   }
 
   Widget blurImage(Size size) {
@@ -307,6 +348,7 @@ class IntroductionPage extends StatelessWidget {
       myList.add(Padding(
         padding: const EdgeInsets.only(right: 5, top: 10),
         child: CircleAvatar(
+          backgroundColor: Colors.black12,
           radius: 30,
           backgroundImage: NetworkImage(controller.dataList[index].images![i]),
         ),
