@@ -1,9 +1,15 @@
-# movies_project
 
-A new Flutter project.
 
-## screenshote
-![Capture](https://github.com/mahdadi78/movies-app/assets/78992400/f7d349e5-edd8-48a3-b5f6-283c90dec4c2)
+# Call_api  with GetX  
+
+A small example with api call. Super beautiful ui. and using Hero to travel between two screens
+
+## Like a video
+
+
+https://github.com/mahdadi78/call_api_with_GetX-miniApp-/assets/78992400/562a9954-2685-4dd3-97f3-792345641662
+
+
 
 This project is a starting point for a Flutter application.
 
